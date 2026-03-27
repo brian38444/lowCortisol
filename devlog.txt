@@ -1,2 +1,11 @@
 junjieL -- 3/23/26 18:50
 - bare repo structure
+
+lucasZ -- 3/26/26 23:02
+- Added login and register functionalites
+
+lucasZ -- 3/27/26 00:04
+- Added python script to download, extract, and convert dataset to SQLite3 tables
+- Added pages folder, tables folder, and home.html (not yet implemented)
+- Added datasets folder to store csvs if needed
+- Added placeholder build_db.py if we need to combine tables
