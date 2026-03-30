@@ -9,3 +9,9 @@ lucasZ -- 3/27/26 00:04
 - Added pages folder, tables folder, and home.html (not yet implemented)
 - Added datasets folder to store csvs if needed
 - Added placeholder build_db.py if we need to combine tables
+
+junjieL -- 3/29/26 22:00
+- Design doc editted
+- Missing database tables and values added
+- Double arrows instead of two separate arrows in site map
+- "quiz" rethought
