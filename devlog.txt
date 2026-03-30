@@ -9,3 +9,12 @@ lucasZ -- 3/27/26 00:04
 - Added pages folder, tables folder, and home.html (not yet implemented)
 - Added datasets folder to store csvs if needed
 - Added placeholder build_db.py if we need to combine tables
+
+shafinK -- 3/30/26 10:45
+- set up build_db.py to create db + users table
+- added to gitignore
+- set up login/register
+- added header
+- added homepage
+- renames "pages" => "templates"
+- set up __init__.py to serve app locally  
