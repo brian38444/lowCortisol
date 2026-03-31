@@ -8,6 +8,8 @@
 
 ## Description:
 It’s the big 26, and you don’t have a fav VTuber? Look no further! Take a quiz, find your Oshi, view their stats and make a post to share your opinion!
+Every VTuber will have a page displaying a photo of their model, a link to their channel, their subscriber count, video count, total/average likes/comments, etc. If they stream, data from their YouTube streams will be displayed, including information on their chatter data (how many unique chatters, unique messages) and their superchat data (unique superchats, revenue by superchats).
+
 
 ## Install Guide:
 
