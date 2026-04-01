@@ -23,9 +23,12 @@ shafinK -- 3/30/26 10:45
 - added header
 - added homepage
 - renames "pages" => "templates"
-- set up __init__.py to serve app locally  
+- set up __init__.py to serve app locally
 
 lucasZ -- 3/30/26 10:59
 - Added .keep to empty folders
 - Broke downlaod_datasets -> use Kagglehub instead
 - Added datasets and tables folders (fr this time)
+
+shafinK -- 4/1/26 10:57
+- changes building of users table to not recreate it every time so that existing users can exit

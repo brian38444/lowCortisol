@@ -17,10 +17,7 @@ DB_FILE = "oshi.db"
 @app.route("/")
 def home_get():
     # session['username'] = 'admin'
-    if (session.get('username')):
-        return render_template("home.html")
-    flash("Please log in to use the website.", 'error')
-    return(redirect(url_for("auth.login_get")))
+    return render_template("home.html")
 
 
 if __name__ == "__main__":
