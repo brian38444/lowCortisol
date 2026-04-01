@@ -24,3 +24,8 @@ shafinK -- 3/30/26 10:45
 - added homepage
 - renames "pages" => "templates"
 - set up __init__.py to serve app locally  
+
+lucasZ -- 3/30/26 10:59
+- Added .keep to empty folders
+- Broke downlaod_datasets -> use Kagglehub instead
+- Added datasets and tables folders (fr this time)
