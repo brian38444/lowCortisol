@@ -33,8 +33,9 @@ lucasZ -- 3/30/26 10:59
 shafinK -- 4/1/26 10:57
 - changes building of users table to not recreate it every time so that existing users can exit
 
-lucasZ -- 4/6/26 16:54
+lucasZ -- 4/6/26 17:08
 - Cleaned up and fixed downlaod_datasets.py -> Run once before launching website. 
 - db0.db, db1.db corresponds with link in URL list order. Rename if needed
 - Removed datasets folder and contents (not needed)
-- 
+- Removed oshi.db (never push dbs to repo)
+- Updated .gitignore to untrack .dbs
