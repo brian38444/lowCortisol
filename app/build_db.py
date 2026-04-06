@@ -1,8 +1,4 @@
-import requests
-import json
-import random
-import urllib.request
-import sqlite3, os
+import sqlite3
 from typing import List, Dict, Optional
 
 DB_FILE = "oshi.db"

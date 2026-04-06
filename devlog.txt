@@ -32,3 +32,9 @@ lucasZ -- 3/30/26 10:59
 
 shafinK -- 4/1/26 10:57
 - changes building of users table to not recreate it every time so that existing users can exit
+
+lucasZ -- 4/6/26 16:54
+- Cleaned up and fixed downlaod_datasets.py -> Run once before launching website. 
+- db0.db, db1.db corresponds with link in URL list order. Rename if needed
+- Removed datasets folder and contents (not needed)
+- 
