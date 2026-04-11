@@ -34,7 +34,7 @@ def register_post():
     db.close()
     session["username"] = username
     flash('Account registered successfully!', 'success')
-    return redirect(url_for('home_get'))
+    return redirect(url_for('disp_homepage'))
 
 @bp.get('/login')
 def login_get():
@@ -53,7 +53,7 @@ def login_post():
         if(check_password_hash(hashword, password)):
             session["username"] = username
             flash('Logged in successfully!', 'success')
-            return redirect(url_for('home_get'))
+            return redirect(url_for('disp_homepage'))
         else:
             flash('Invalid password', 'error')
             return redirect(url_for('auth.login_get'))

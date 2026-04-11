@@ -39,3 +39,10 @@ lucasZ -- 4/6/26 17:08
 - Removed datasets folder and contents (not needed)
 - Removed oshi.db (never push dbs to repo)
 - Updated .gitignore to untrack .dbs
+
+shafinK -- 4/11/26 3:06
+- created empty template quiz.html + route in __init__
+- changed color scheme + logo gif 
+- updated build_db.py to include vtubers/chats/superchats
+- added the csv files directly into repo (i have no idea how download_datasets.py is supposed to work sorz)
+- added loader.py to take data from csvs and put them into sql tables 

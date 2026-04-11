@@ -7,18 +7,31 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from auth import bp as auth_bp
-import sqlite3, os, build_db
+import sqlite3, os, build_db, loader
 
 app = Flask(__name__)
 app.register_blueprint(auth_bp)
 app.secret_key = os.urandom(24)
 DB_FILE = "oshi.db"
 
-@app.route("/")
-def home_get():
-    # session['username'] = 'admin'
-    return render_template("home.html")
+# @app.route("/")
+# def home_get():
+#     # session['username'] = 'admin'
+#     return render_template("home.html")
 
+@app.route("/")
+def disp_homepage():
+    if session.get("username"):
+        return render_template("home.html")
+    else:
+        return redirect(url_for("auth.login_get"))
+    
+@app.route("/quiz")
+def disp_quiz():
+    if session.get("username"):
+        return render_template("quiz.html")
+    else:
+        return redirect(url_for("auth.login_get"))
 
 if __name__ == "__main__":
     app.debug = True
