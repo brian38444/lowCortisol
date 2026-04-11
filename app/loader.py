@@ -38,14 +38,14 @@ def run():
         c.execute(
             """
             UPDATE vtubers SET
-                channel_url            = ?,
-                total_views            = ?,
-                total_likes            = ?,
-                total_comments         = ?,
-                avg_views              = ?,
-                avg_likes              = ?,
+                channel_url = ?,
+                total_views = ?,
+                total_likes = ?,
+                total_comments = ?,
+                avg_views = ?,
+                avg_likes = ?,
                 total_subscriber_count = ?,
-                total_videos           = ?
+                total_videos = ?
             WHERE channel_id = ?
             """,
             (

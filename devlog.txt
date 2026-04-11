@@ -46,3 +46,10 @@ shafinK -- 4/11/26 3:06
 - updated build_db.py to include vtubers/chats/superchats
 - added the csv files directly into repo (i have no idea how download_datasets.py is supposed to work sorz)
 - added loader.py to take data from csvs and put them into sql tables 
+
+shafinK -- 4/11/26 4:28
+- added comments table to build_db.py
+- created template for profile.html
+- created browse.html (list of all vtubers + filters)
+- added function in __init__ to handle filters for browse
+- added browse to header 
