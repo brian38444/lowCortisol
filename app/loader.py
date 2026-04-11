@@ -12,7 +12,7 @@ def run():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    channels = load("../chatStats/channels.csv")
+    channels = load("chatStats/channels.csv")
     c.executemany(
         """
         INSERT OR IGNORE INTO vtubers
@@ -33,7 +33,7 @@ def run():
         ],
     )
 
-    master = load("../channelStats/masterData.csv")
+    master = load("channelStats/masterData.csv")
     for r in master:
         c.execute(
             """
@@ -62,7 +62,7 @@ def run():
         )
 
 
-    chats = load("../chatStats/chat_stats.csv")
+    chats = load("chatStats/chat_stats.csv")
     # only insert rows where the channel exists in vtubers for continuity 
     c.executemany(
         """
@@ -87,7 +87,7 @@ def run():
         ],
     )
 
-    scs = load("../chatStats/superchat_stats.csv")
+    scs = load("chatStats/superchat_stats.csv")
     # only insert rows where the channel exists in vtubers for continuity 
     c.executemany(
         """
