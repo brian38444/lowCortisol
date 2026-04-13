@@ -129,3 +129,4 @@ ehthumbs.db
 
 app/tables/*.db
 app/*.db
+*.csv
