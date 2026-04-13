@@ -67,14 +67,15 @@ def run():
     c.executemany(
         """
         INSERT OR REPLACE INTO chats
-            (channel_id, period, member_chats, unique_chatters,
+            (channel_id, period, chats, member_chats, unique_chatters,
              banned_chatters, deleted_chats)
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         [
             (
                 r["channelId"],
                 r["period"],
+                int(r["chats"]),
                 int(r["memberChats"]),
                 int(r["uniqueChatters"]),
                 int(r["bannedChatters"]),

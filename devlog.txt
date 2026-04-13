@@ -53,3 +53,7 @@ shafinK -- 4/11/26 4:28
 - created browse.html (list of all vtubers + filters)
 - added function in __init__ to handle filters for browse
 - added browse to header 
+
+shafinK -- 4/13/26 4:00
+- added profile.html with some tables + comment feature (no chart.js yet)
+- added functions in __init__ to handle profile.html

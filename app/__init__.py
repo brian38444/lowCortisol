@@ -1,4 +1,3 @@
-
 # Jun Jie Li (PM), Shafin Kazi, Lucas Zheng, Kyle Liu
 # lowCortisol
 # SoftDev pd4
@@ -11,13 +10,8 @@ import sqlite3, os, build_db, loader
 
 app = Flask(__name__)
 app.register_blueprint(auth_bp)
-app.secret_key = os.urandom(24)
+app.secret_key = "secretkey"
 DB_FILE = "oshi.db"
-
-# @app.route("/")
-# def home_get():
-#     # session['username'] = 'admin'
-#     return render_template("home.html")
 
 @app.route("/")
 def disp_homepage():
@@ -71,6 +65,57 @@ def disp_browse():
 
         db.close()
         return render_template("browse.html", vtubers=vtubers, all_vtubers=all_vtubers, agencies=agencies, filter=filter, q=q)
+    else:
+        return redirect(url_for("auth.login_get"))
+    
+
+@app.route("/profile/<channel_id>")
+def disp_profile(channel_id):
+    if session.get("username"):
+        db = sqlite3.connect(DB_FILE)
+        db.row_factory = sqlite3.Row
+        cursor = db.cursor()
+    
+        vtuber = cursor.execute(
+            "SELECT * FROM vtubers WHERE channel_id = ?", (channel_id,)
+        ).fetchone()
+    
+        if not vtuber:
+            db.close()
+            return "VTuber not found"
+    
+        chats = cursor.execute(
+            "SELECT * FROM chats WHERE channel_id = ? ORDER BY period", (channel_id,)
+        ).fetchall()
+    
+        superchats = cursor.execute(
+            "SELECT * FROM superchats WHERE channel_id = ? ORDER BY period", (channel_id,)
+        ).fetchall()
+    
+        comments = cursor.execute(
+            """SELECT c.desc, c.username FROM comments c WHERE c.channel_id = ? ORDER BY c.comment_id DESC""",
+            (channel_id,)
+        ).fetchall()
+    
+        db.close()
+        return render_template("profile.html", vtuber=vtuber, chats=chats, superchats=superchats, comments=comments)
+    else: 
+        return redirect(url_for("auth.login_get"))
+ 
+ 
+@app.route("/profile/<channel_id>/comment", methods=["POST"])
+def post_comment(channel_id):
+    if session.get("username"):
+        desc = request.form.get("desc", "").strip()
+        if desc:
+            db = sqlite3.connect(DB_FILE)
+            db.execute(
+                "INSERT INTO comments (channel_id, username, desc) VALUES (?, ?, ?)",
+                (channel_id, session["username"], desc),
+            )
+            db.commit()
+            db.close()
+        return redirect(url_for("disp_profile", channel_id=channel_id))
     else:
         return redirect(url_for("auth.login_get"))
 
