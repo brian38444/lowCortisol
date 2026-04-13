@@ -11,7 +11,7 @@ import sqlite3, os, build_db, loader
 
 app = Flask(__name__)
 app.register_blueprint(auth_bp)
-app.secret_key = os.urandom(24)
+app.secret_key = "secretkey"
 DB_FILE = "oshi.db"
 
 # @app.route("/")
