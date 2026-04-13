@@ -29,7 +29,7 @@ cursor.executescript(
 
     CREATE TABLE IF NOT EXISTS chats (
         channel_id TEXT REFERENCES vtubers(channel_id),
-        period KEY,
+        period TEXT,
         chats INTEGER DEFAULT 0,
         member_chats INTEGER DEFAULT 0,
         unique_chatters INTEGER DEFAULT 0,
