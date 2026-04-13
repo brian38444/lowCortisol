@@ -10,7 +10,11 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 URL = [
     "uetchy/vtuber-livechat-elements",
-    "maliqr/vtuber-like-views-and-subscriber-data"
+#    "maliqr/vtuber-like-views-and-subscriber-data"
+]
+PATH = [
+    "?select=channels.csv", 
+    "?select=chat_stats.csv"
 ]
 
 def csv_to_db(csv_path: Path, db_path: Path, table_name: str) -> None:
@@ -24,11 +28,12 @@ if __name__ == "__main__":
     tables_dir.mkdir(parents=True, exist_ok=True)
 
     for i, url in enumerate(URL):
-        dataset_path = Path(kagglehub.dataset_download(url))
+        for j, path in enumerate(PATH):
+            dataset_path = Path(kagglehub.dataset_download(url, path))
 
-        csv_files = list(dataset_path.glob("*.csv"))
-        csv_path = csv_files[0]
-        db_path = tables_dir / f"db{i}.db"
+            csv_files = list(dataset_path.glob("*.csv"))
+            csv_path = csv_files[0]
+            db_path = tables_dir / f"db{i}.db"
 
-        print(f"Loading {csv_path.name} → {db_path.name}")
-        csv_to_db(csv_path, db_path, f"data{i}")
+            print(f"Loading {csv_path.name} → {db_path.name}")
+            csv_to_db(csv_path, db_path, f"data{i}")
