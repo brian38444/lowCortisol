@@ -131,4 +131,5 @@ app/tables/*.db
 app/*.db
 *.csv
 *.kaggle
+kaggle.json
 access_token
