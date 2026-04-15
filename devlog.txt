@@ -57,3 +57,8 @@ shafinK -- 4/11/26 4:28
 shafinK -- 4/13/26 4:00
 - added profile.html with some tables + comment feature (no chart.js yet)
 - added functions in __init__ to handle profile.html
+
+shafinK -- 4/14/26 20:07
+- reworked download_datasets entirely to use os.system (shell commands) instead of Kagglehub
+- added to requirements.txt
+- changed youtube link logic on profile.html

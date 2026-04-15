@@ -26,9 +26,7 @@
     <p class="text-sm text-rose-200 mb-2">{{ vtuber.agency }}</p>
   {% endif %}
 
-  {% if vtuber.channel_url %}
-    <a href="{{ vtuber.channel_url }}" target="_blank" class="text-sm text-sky-300 underline">YouTube Channel</a>
-  {% endif %}
+  <a href="https://www.youtube.com/channel/{{ vtuber.channel_id }}" target="_blank" class="text-sm text-sky-300 underline">YouTube Channel</a>
 </div>
 
 <div class="max-w-3xl mx-auto px-4 py-6">

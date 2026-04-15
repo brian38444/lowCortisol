@@ -6,7 +6,7 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from auth import bp as auth_bp
-import sqlite3, os, build_db, loader
+import sqlite3, os, build_db, download_datasets, loader
 
 app = Flask(__name__)
 app.register_blueprint(auth_bp)

@@ -130,3 +130,5 @@ ehthumbs.db
 app/tables/*.db
 app/*.db
 *.csv
+*.kaggle
+access_token
