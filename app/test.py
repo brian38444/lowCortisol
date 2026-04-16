@@ -13,16 +13,16 @@ URL = [
    "uetchy/vtuber-livechat-elements",
    "maliqr/vtuber-like-views-and-subscriber-data"
 ]
-PATH = [
-    "?select=channels.csv",
-    "?select=chat_stats.csv"
-]
 
 def downloadDataset() -> str:
     return kagglehub.dataset_download("uetchy/vtuber-livechat-elements")
 
-def downloadDatasetWPath() -> str:
+def downloadDatasetSpecific() -> str:
     return kagglehub.dataset_download("uetchy/vtuber-livechat-elements", "channels.csv")
+
+#def downloadDatasetToPath():
+#    return kagglehub.dataset_download("uetchy/vtuber-livechat-elements", )
+  
 
 
 # def csv_to_db(csv_path: Path, db_path: Path, table_name: str) -> None:
@@ -35,6 +35,8 @@ if __name__ == "__main__":
     tables_dir = ROOT / "tables"
     tables_dir.mkdir(parents=True, exist_ok=True)
 
-    downloadDataset()
+#    downloadDataset()
+#    downloadDatasetSpecific()
+#    downloadDatasetToPath()
 
     # csv_to_db(csv_path, db_path, f"data{i}")
