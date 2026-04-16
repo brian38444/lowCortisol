@@ -62,3 +62,13 @@ shafinK -- 4/14/26 20:07
 - reworked download_datasets entirely to use os.system (shell commands) instead of Kagglehub
 - added to requirements.txt
 - changed youtube link logic on profile.html
+
+```
+HOME STRETCH CHECKLIST:
+------------------------------------
+* NEED TO START CHARTJS and make sure "quiz" has something there :: Jun Jie
+* test_apparatus, help with "quiz" :: Shafin
+* test_apparatus and chartjs :: Lucas
+* Click thru all youtube links to see if they all exist :: Kyle
+====================================
+```
