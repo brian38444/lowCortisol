@@ -71,6 +71,57 @@
   {% endif %}
 
 
+{% if chats and superchats %}
+<h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Chat Activity Over Time</h2>
+<canvas id="chatsOverTime"></canvas>
+
+<script>
+
+  const labelsChats = [];
+  const valuesChats = [];
+  const valuesMembers = [];
+  const valuesDeleted = [];
+
+  {% for c in chats %}
+    labelsChats.push("{{ c.period }}");
+    valuesChats.push({{ c.chats }});
+    valuesMembers.push({{ c.member_chats }});
+    valuesDeleted.push({{ c.deleted_chats }});
+  {% endfor %}
+
+  new Chart(document.getElementById('chatsOverTime'), {
+    type: 'line',
+    data: {
+      labels: labelsChats,
+      datasets: [{
+        label: 'Total Chats',
+        data: valuesChats,
+        borderColor: 'rgb(225, 29, 72)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Total Super Chats',
+        data: valuesMembers,
+        borderColor: 'rgb(59, 130, 246)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Total Deleted Chats',
+        data: valuesDeleted,
+        borderColor: 'rgb(255, 137, 4)',
+        fill: false,
+        tension: 0.1,
+      }
+    ]
+    },
+    options: {
+      responsive: true,
+    }
+  });
+</script>
+{% endif %}
+
+
   <h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Community Opinions</h2>
   <div class="bg-white border border-rose-500 rounded-md p-4">
     <form method="POST" action="/profile/{{ vtuber.channel_id }}/comment" class="flex flex-col gap-2">
@@ -95,6 +146,7 @@
   {% else %}
   <p class="text-slate-400 text-sm mt-2">No comments yet. =w=</p>
   {% endif %}
+
 
 </div>
 

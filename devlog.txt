@@ -67,8 +67,17 @@ shafinK -- 4/14/26 20:07
 HOME STRETCH CHECKLIST:
 ------------------------------------
 * NEED TO START CHARTJS and make sure "quiz" has something there :: Jun Jie
-* test_apparatus, help with "quiz" :: Shafin
+* test_apparatus, help with "quiz", chartjs :: Shafin
 * test_apparatus and chartjs :: Lucas
 * Click thru all youtube links to see if they all exist :: Kyle
 ====================================
 ```
+shafinK -- 4/16/26 00:01
+- removed tables dir 
+- removed profile.js (we will be using charjs directly in profile.html)
+- added script tag to profile.html (put chartjs stuff here)
+- added a chatdata over time (chats, superchats, deleted chats)
+- to add:
+    - interaction pie chart (chats, superchat, /comments)
+    - chatterdata line chart (unique chatters, unique superchatters, banned chatters)
+    - superchat revenue over time ? (maybe) 
