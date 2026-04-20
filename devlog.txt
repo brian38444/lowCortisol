@@ -81,3 +81,6 @@ shafinK -- 4/16/26 00:01
     - interaction pie chart (chats, superchat, /comments)
     - chatterdata line chart (unique chatters, unique superchatters, banned chatters)
     - superchat revenue over time ? (maybe) 
+
+junjieL -- 4/19/26 23:44
+- added chatterdata line chart below chatdata over time (unique chatters, unique superchatters, banned chatters)

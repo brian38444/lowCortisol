@@ -119,6 +119,55 @@
     }
   });
 </script>
+
+<h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Member Data Over Time</h2>
+<canvas id="memberData"></canvas>
+
+<script>
+  const labelsMembers = [];
+  const valuesChatters = [];
+  const valuesBanned = [];
+  const valuesSupperChatters = [];
+
+  {% for c in chats %}
+    labelsMembers.push("{{ c.period }}");
+    valuesChatters.push({{ c.unique_chatters }});
+    valuesBanned.push({{ c.banned_chatters }});
+  {% endfor %}
+  {% for s in superchats %}
+    valuesSupperChatters.push({{ s.unique_super_chatters }});
+  {% endfor %}
+
+  new Chart(document.getElementById('memberData'), {
+    type: 'line',
+    data: {
+      labels: labelsMembers,
+      datasets: [{
+        label: 'Unique Chatters',
+        data: valuesChatters,
+        borderColor: 'rgb(125, 0, 180)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Banned Chatters',
+        data: valuesBanned,
+        borderColor: 'rgb(255, 0, 255)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Unique Super Chatters',
+        data: valuesSupperChatters,
+        borderColor: 'rgb(255, 255, 0)',
+        fill: false,
+        tension: 0.1,
+      }
+    ]
+    },
+    options: {
+      responsive: true,
+    }
+  });
+</script>
 {% endif %}
 
 
