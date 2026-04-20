@@ -79,6 +79,8 @@
 
   const labelsChats = [];
   const valuesChats = [];
+  const valuesSuper = [];
+  const moneySuper = [];
   const valuesMembers = [];
   const valuesDeleted = [];
 
@@ -89,24 +91,41 @@
     valuesDeleted.push({{ c.deleted_chats }});
   {% endfor %}
 
+  {% for s in superchats %}
+    valuesSuper.push({{ s.super_chats }});
+    moneySuper.push({{ s.total_sc }})
+  {% endfor %}
+
   new Chart(document.getElementById('chatsOverTime'), {
     type: 'line',
     data: {
       labels: labelsChats,
       datasets: [{
-        label: 'Total Chats',
+        label: 'Chats',
         data: valuesChats,
         borderColor: 'rgb(225, 29, 72)',
         fill: false,
         tension: 0.1,
       }, {
-        label: 'Total Super Chats',
+        label: 'Super Chats',
+        data: valuesSuper,
+        borderColor: 'rgb(0, 188, 125)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Super Chat Revenue (¥)',
+        data: moneySuper,
+        borderColor: 'rgb(244, 168, 255)',
+        fill: false,
+        tension: 0.1,
+      }, {
+        label: 'Member Chats',
         data: valuesMembers,
         borderColor: 'rgb(59, 130, 246)',
         fill: false,
         tension: 0.1,
       }, {
-        label: 'Total Deleted Chats',
+        label: 'Deleted Chats',
         data: valuesDeleted,
         borderColor: 'rgb(255, 137, 4)',
         fill: false,
@@ -162,6 +181,43 @@
         tension: 0.1,
       }
     ]
+    },
+    options: {
+      responsive: true,
+    }
+  });
+</script>
+
+<h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Viewer Interaction Distribution</h2>
+<canvas id="interactionData"></canvas>
+<script>
+
+  let totalChats = 0;
+  let totalSuperChats = 0;
+  const valuesPie = [];
+
+  {% for c in chats %}
+    totalChats += parseFloat("{{ c.chats }}");
+  {% endfor %}
+  {% for s in superchats %}
+    totalSuperChats += parseFloat("{{ s.super_chats }}");
+  {% endfor %}
+
+  valuesPie.push({{ vtuber.total_comments }})
+  valuesPie.push(totalChats)
+  valuesPie.push(totalSuperChats)
+
+  // console.log(valuesPie)
+
+  new Chart(document.getElementById('interactionData'), {
+    type: 'pie',
+    data: {
+      labels: ['Comments', 'Chats', 'Superchats'],
+      datasets: [{
+        data: valuesPie,
+        backgroundColor: ['rgb(225, 29, 72)', 'rgb(59, 130, 246)', 'rgb(255, 137, 4)'],
+        hoverOffset: 4
+      }]
     },
     options: {
       responsive: true,

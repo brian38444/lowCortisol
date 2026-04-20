@@ -84,3 +84,7 @@ shafinK -- 4/16/26 00:01
 
 junjieL -- 4/19/26 23:44
 - added chatterdata line chart below chatdata over time (unique chatters, unique superchatters, banned chatters)
+
+shafinK -- 4/20/26 2:46
+- added superchat / superchat revenue lines to chat activity over time graph
+- added chatter interaction pie chart (comments, chats, superchats)
