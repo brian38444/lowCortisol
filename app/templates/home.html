@@ -7,35 +7,49 @@
 
 {% extends "header.html" %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home - Find My OSHI{% endblock %}
 
 {% block content %}
 
-<br> <br>
+<br><br><br><br><br>
+<h2 class="text-rose-600 font-bold text-lg w-4/5 mx-auto">Favorite Oshis</h2>
 
-  <div class="mt-20 mb-10">
-    {% with messages = get_flashed_messages(with_categories=True) %}
-      {% if messages %}
-      <div class="space-y-4 mt-4">
-        {% for category, message in messages %}
-          {% if category == 'error' %}
-          <div class="px-4 py-3 rounded bg-red-100 border border-red-400 text-red-700" role="alert">
-            {{ message }}
-          </div>
-          {% elif category == 'success' %}
-          <div class="px-4 py-3 rounded bg-green-100 border border-green-400 text-green-700" role="alert">
-            {{ message }}
-          </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 w-4/5 mx-auto">
+  {% for vtuber in vtubers %}
+  <a
+    href="/profile/{{ vtuber[0] }}"
+    class="group bg-white border border-gray-100 rounded-xl overflow-hidden hover:border-rose-300 hover:shadow-sm transition-all"
+  >
+    <div class="aspect-square bg-gray-50 overflow-hidden">
+      {% if vtuber[2] %}
+        <img
+          src="{{ vtuber[2] }}"
+          alt="{{ vtuber[1] }}"
+          class="w-full h-full object-cover group-hover:scale-105 duration-300"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <div class="w-full h-full hidden items-center justify-center bg-rose-50 text-rose-700 text-2xl font-medium">
+          {{ vtuber[1][0] | upper }}
+        </div>
+      {% else %}
+        <div class="w-full h-full flex items-center justify-center bg-rose-50 text-rose-700 text-2xl font-medium">
+          {{ vtuber[1][0] | upper }}
+        </div>
       {% endif %}
-    {% endwith %}
+    </div>
+    <div class="p-3">
+      <p class="text-sm font-medium truncate text-gray-900">{{ vtuber[1] }}</p>
+      {% if vtuber[3] %}
+        <p class="text-xs text-gray-400 truncate mt-0.5">{{ vtuber[3] }}</p>
+      {% endif %}
+      <p class="text-xs text-gray-400 mt-1">{{ '{:,}'.format(vtuber[4]) }} subs</p>
+    </div>
+  </a>
+  {% else %}
+  <div class="col-span-full text-center py-20 text-gray-400 text-sm">
+    No favorites yet. <a href="/browse" class="text-rose-500 hover:underline">Browse VTubers</a> to add some!
   </div>
-
-  <br><br><br>
-
+  {% endfor %}
+</div>
 
 {% endblock %}

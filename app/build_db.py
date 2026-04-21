@@ -58,6 +58,12 @@ cursor.executescript(
         username TEXT REFERENCES users(username),
         desc TEXT
     );
+
+    CREATE TABLE IF NOT EXISTS favorites (
+        username TEXT REFERENCES users(username),
+        channel_id TEXT REFERENCES vtubers(channel_id),
+        PRIMARY KEY (username, channel_id)
+        );
     """
 )
 

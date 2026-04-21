@@ -16,7 +16,33 @@ DB_FILE = "oshi.db"
 @app.route("/")
 def disp_homepage():
     if session.get("username"):
-        return render_template("home.html")
+        db = sqlite3.connect(DB_FILE)
+        cursor = db.cursor()
+        vtubers = cursor.execute("""
+            SELECT channel_id, channel_name, profile_image_url, agency, total_subscriber_count
+            FROM vtubers
+            WHERE channel_id IN (
+                SELECT channel_id FROM favorites WHERE username = ?
+            )
+            ORDER BY channel_name
+        """, (session["username"],)).fetchall()
+        db.close()
+        return render_template("home.html", vtubers=vtubers)
+    else:
+        return redirect(url_for("auth.login_get"))
+    
+@app.route("/profile/<channel_id>/favorite", methods=["POST"])
+def toggle_favorite(channel_id):
+    if session.get("username"):
+        db = sqlite3.connect(DB_FILE)
+        cursor = db.cursor()
+        if cursor.execute("""SELECT 1 FROM favorites WHERE username=? AND channel_id=?""", (session["username"], channel_id)).fetchone():
+            cursor.execute("""DELETE FROM favorites WHERE username=? AND channel_id=?""", (session["username"], channel_id))
+        else:
+            cursor.execute("""INSERT INTO favorites VALUES (?, ?)""", (session["username"], channel_id))
+        db.commit()
+        db.close()
+        return redirect(url_for("disp_profile", channel_id=channel_id))
     else:
         return redirect(url_for("auth.login_get"))
     
@@ -96,9 +122,15 @@ def disp_profile(channel_id):
             """SELECT c.desc, c.username FROM comments c WHERE c.channel_id = ? ORDER BY c.comment_id DESC""",
             (channel_id,)
         ).fetchall()
+
+        result = cursor.execute(
+            """SELECT 1 FROM favorites WHERE username=? AND channel_id=?""",
+            (session["username"], channel_id)
+        ).fetchone()
+        is_favorite = result is not None
     
         db.close()
-        return render_template("profile.html", vtuber=vtuber, chats=chats, superchats=superchats, comments=comments)
+        return render_template("profile.html", vtuber=vtuber, chats=chats, superchats=superchats, comments=comments, is_favorite=is_favorite)
     else: 
         return redirect(url_for("auth.login_get"))
  
