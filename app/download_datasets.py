@@ -2,9 +2,7 @@
 # https://www.kaggle.com/datasets/maliqr/vtuber-like-views-and-subscriber-data
 
 from flask import *
-# import pandas as pd
 import sqlite3
-# import kagglehub
 import os
 from pathlib import Path
 
