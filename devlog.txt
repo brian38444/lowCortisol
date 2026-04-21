@@ -88,3 +88,9 @@ junjieL -- 4/19/26 23:44
 shafinK -- 4/20/26 2:46
 - added superchat / superchat revenue lines to chat activity over time graph
 - added chatter interaction pie chart (comments, chats, superchats)
+
+shafinK -- 4/20/26 21:36
+- editted requirements to get rid of kagglehub (rip)
+- added mkdir chatStats to download_datasets
+- made the line graphs side by side
+- made the pie chart smaller

@@ -4,12 +4,14 @@
 from flask import *
 # import pandas as pd
 import sqlite3
-import kagglehub
+# import kagglehub
 import os
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 chat_dir = ROOT / "chatStats"
+chat_dir.mkdir(parents=True, exist_ok=True)
+
 
 os.system(f"kaggle datasets download uetchy/vtuber-livechat-elements -p {chat_dir} --unzip")
 

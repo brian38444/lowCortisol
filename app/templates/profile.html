@@ -70,126 +70,139 @@
     </table>
   {% endif %}
 
+</div>
+
 
 {% if chats and superchats %}
-<h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Chat Activity Over Time</h2>
-<canvas id="chatsOverTime"></canvas>
+<div class="max-w-6xl mx-auto px-4">
+<div class="grid grid-cols-2 gap-4">
 
-<script>
+  <div>
+    <h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Chat Activity Over Time</h2>
+    <canvas id="chatsOverTime", height="400", width="600"></canvas>
 
-  const labelsChats = [];
-  const valuesChats = [];
-  const valuesSuper = [];
-  const moneySuper = [];
-  const valuesMembers = [];
-  const valuesDeleted = [];
+    <script>
 
-  {% for c in chats %}
-    labelsChats.push("{{ c.period }}");
-    valuesChats.push({{ c.chats }});
-    valuesMembers.push({{ c.member_chats }});
-    valuesDeleted.push({{ c.deleted_chats }});
-  {% endfor %}
+      const labelsChats = [];
+      const valuesChats = [];
+      const valuesSuper = [];
+      const moneySuper = [];
+      const valuesMembers = [];
+      const valuesDeleted = [];
 
-  {% for s in superchats %}
-    valuesSuper.push({{ s.super_chats }});
-    moneySuper.push({{ s.total_sc }})
-  {% endfor %}
+      {% for c in chats %}
+        labelsChats.push("{{ c.period }}");
+        valuesChats.push({{ c.chats }});
+        valuesMembers.push({{ c.member_chats }});
+        valuesDeleted.push({{ c.deleted_chats }});
+      {% endfor %}
 
-  new Chart(document.getElementById('chatsOverTime'), {
-    type: 'line',
-    data: {
-      labels: labelsChats,
-      datasets: [{
-        label: 'Chats',
-        data: valuesChats,
-        borderColor: 'rgb(225, 29, 72)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Super Chats',
-        data: valuesSuper,
-        borderColor: 'rgb(0, 188, 125)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Super Chat Revenue (¥)',
-        data: moneySuper,
-        borderColor: 'rgb(244, 168, 255)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Member Chats',
-        data: valuesMembers,
-        borderColor: 'rgb(59, 130, 246)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Deleted Chats',
-        data: valuesDeleted,
-        borderColor: 'rgb(255, 137, 4)',
-        fill: false,
-        tension: 0.1,
-      }
-    ]
-    },
-    options: {
-      responsive: true,
-    }
-  });
-</script>
+      {% for s in superchats %}
+        valuesSuper.push({{ s.super_chats }});
+        moneySuper.push({{ s.total_sc }})
+      {% endfor %}
 
-<h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Member Data Over Time</h2>
-<canvas id="memberData"></canvas>
+      new Chart(document.getElementById('chatsOverTime'), {
+        type: 'line',
+        data: {
+          labels: labelsChats,
+          datasets: [{
+            label: 'Chats',
+            data: valuesChats,
+            borderColor: 'rgb(225, 29, 72)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Super Chats',
+            data: valuesSuper,
+            borderColor: 'rgb(0, 188, 125)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Super Chat Revenue (¥)',
+            data: moneySuper,
+            borderColor: 'rgb(244, 168, 255)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Member Chats',
+            data: valuesMembers,
+            borderColor: 'rgb(59, 130, 246)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Deleted Chats',
+            data: valuesDeleted,
+            borderColor: 'rgb(255, 137, 4)',
+            fill: false,
+            tension: 0.1,
+          }
+        ]
+        },
+        options: {
+          responsive: true,
+        }
+      });
+    </script>
+  </div>
 
-<script>
-  const labelsMembers = [];
-  const valuesChatters = [];
-  const valuesBanned = [];
-  const valuesSupperChatters = [];
+  <div>
+    <h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Member Data Over Time</h2>
+    <canvas id="memberData", height="400", width="600"></canvas>
 
-  {% for c in chats %}
-    labelsMembers.push("{{ c.period }}");
-    valuesChatters.push({{ c.unique_chatters }});
-    valuesBanned.push({{ c.banned_chatters }});
-  {% endfor %}
-  {% for s in superchats %}
-    valuesSupperChatters.push({{ s.unique_super_chatters }});
-  {% endfor %}
+    <script>
+      const labelsMembers = [];
+      const valuesChatters = [];
+      const valuesBanned = [];
+      const valuesSupperChatters = [];
 
-  new Chart(document.getElementById('memberData'), {
-    type: 'line',
-    data: {
-      labels: labelsMembers,
-      datasets: [{
-        label: 'Unique Chatters',
-        data: valuesChatters,
-        borderColor: 'rgb(125, 0, 180)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Banned Chatters',
-        data: valuesBanned,
-        borderColor: 'rgb(255, 0, 255)',
-        fill: false,
-        tension: 0.1,
-      }, {
-        label: 'Unique Super Chatters',
-        data: valuesSupperChatters,
-        borderColor: 'rgb(255, 255, 0)',
-        fill: false,
-        tension: 0.1,
-      }
-    ]
-    },
-    options: {
-      responsive: true,
-    }
-  });
-</script>
+      {% for c in chats %}
+        labelsMembers.push("{{ c.period }}");
+        valuesChatters.push({{ c.unique_chatters }});
+        valuesBanned.push({{ c.banned_chatters }});
+      {% endfor %}
+      {% for s in superchats %}
+        valuesSupperChatters.push({{ s.unique_super_chatters }});
+      {% endfor %}
 
+      new Chart(document.getElementById('memberData'), {
+        type: 'line',
+        data: {
+          labels: labelsMembers,
+          datasets: [{
+            label: 'Unique Chatters',
+            data: valuesChatters,
+            borderColor: 'rgb(125, 0, 180)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Banned Chatters',
+            data: valuesBanned,
+            borderColor: 'rgb(255, 0, 255)',
+            fill: false,
+            tension: 0.1,
+          }, {
+            label: 'Unique Super Chatters',
+            data: valuesSupperChatters,
+            borderColor: 'rgb(255, 255, 0)',
+            fill: false,
+            tension: 0.1,
+          }
+        ]
+        },
+        options: {
+          responsive: true,
+        }
+      });
+    </script>
+  </div>
+</div>
+
+<div class="max-w-3xl mx-auto px-4">
 <h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Viewer Interaction Distribution</h2>
-<canvas id="interactionData"></canvas>
+<div class="w-96 mx-auto">
+  <canvas id="interactionData"></canvas>
+</div>
 <script>
 
   let totalChats = 0;
@@ -226,7 +239,6 @@
 </script>
 {% endif %}
 
-
   <h2 class="text-rose-600 font-bold text-lg border-b-2 border-rose-600 pb-1 mt-8 mb-3">Community Opinions</h2>
   <div class="bg-white border border-rose-500 rounded-md p-4">
     <form method="POST" action="/profile/{{ vtuber.channel_id }}/comment" class="flex flex-col gap-2">
@@ -249,9 +261,8 @@
     {% endfor %}
   </div>
   {% else %}
-  <p class="text-slate-400 text-sm mt-2">No comments yet. =w=</p>
+  <p class="text-slate-400 text-sm mt-2 mb-4">No comments yet. (,,īī, ﹏ ,īī,,)`</p>
   {% endif %}
-
 
 </div>
 
