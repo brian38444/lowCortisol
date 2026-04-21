@@ -106,3 +106,6 @@ shafinK -- 4/21/26 5:13
 lucasZ -- 4/21/26 10:45
 - Deleted test.py
 - Fixed up download_datasets.py
+
+lucasZ -- 4/21/26 10:58
+- Updated README.md

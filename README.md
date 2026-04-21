@@ -33,20 +33,23 @@ For Windows users
 $ venv\Scripts\activate
 $ pip install -r requirements.txt
 ```
-## Launch Codes:
-In terminal, access project root directory and run the command:
+
+## Steps to Run
+1. Create a Kaggle account at [https://www.kaggle.com]{kaggle.com}
+2. Go to account --> Settings --> Create Legacy API Key which downloads kaggle.json to your machine
+3. Move kaggle.json to ~/.kaggle
+4. In terminal, access project root directory and run the command:
 
 ```
 ~$ cd app
 ~$ python __init__.py
 ```
 
-
 ## FEATURE SPOTLIGHT
-* blah blah blah, at line xx in file ___, etc
-* yadda yadda at line x in file foo...
-* interact w/ ___ on page ___ to...
-* cool thing to do as user... (try this!)
+* A quiz to find a matching VTuber for you
+* Graphs displaying channel and livestream statistics
+* Commenting feature to give your opinions on VTubers
+* Ability to favorite your VTubers to remember them
 
 ## KNOWN BUGS/ISSUES
 * spider
