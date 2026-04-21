@@ -98,3 +98,7 @@ shafinK -- 4/20/26 21:36
 junjieL -- 4/21/26 1:08
 - added favorites button to profiles, and "favorite" database
 - used browse.html into home.html but only show if is a favorite
+
+shafinK -- 4/21/26 5:13
+- added quiz !!!!! + all routes in init 
+- created quiz_results.html to display quiz_results

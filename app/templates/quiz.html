@@ -2,7 +2,7 @@
   Team lowCortisol :: Jun Jie Li (PM), Shafin Kazi, Lucas Zheng, Kyle Liu
   SoftDev pd4
   p04
-  2026-04-20
+  2026-04-20m
 -->
 {% extends "header.html" %}
 
@@ -10,4 +10,167 @@
 
 {% block content %}
 
+<div class="min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-lg">
+
+    <div class="mb-4">
+      <div class="flex justify-between text-sm text-gray-500 mb-1">
+        <p>Question {{ step }} of {{ total_steps }}</p>
+      </div>
+    </div>
+
+    <form method="POST" action="/quiz/{{ step }}">
+      <div class="bg-white shadow-md border border-rose-500 rounded px-8 pt-6 pb-8 mb-4">
+
+        {% if step == 1 %}
+          <label class="block text-gray-700 text-sm font-bold mb-2">Do you want a popular VTuber?</label>
+          <div class="grid gap-2">
+            <label>
+              <input type="radio" name="answer" value="mega" required class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Super popular (1M+ subscribers)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="mid" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Mid-tier (100K–1M subscribers)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="small" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Underground (Under 100K subscribers)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="any" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                No Preference
+              </div>
+            </label>
+          </div>
+
+        {% elif step == 2 %}
+          <label class="block text-gray-700 text-sm font-bold mb-2">How active should they upload?</label>
+          <div class="grid gap-2">
+            <label>
+              <input type="radio" name="answer" value="high" required class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Frequently (500+ videos)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="mid" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Moderately (100–500 videos)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="low" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                I only watch streams (Under 100 videos)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="any" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                No Preference
+              </div>
+            </label>
+          </div>
+
+        {% elif step == 3 %}
+          <label class="block text-gray-700 text-sm font-bold mb-2">How active should the stream chat be?</label>
+          <div class="grid gap-2">
+            <label>
+              <input type="radio" name="answer" value="high" required class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Very active (1M+ total chats)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="mid" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Moderately active (100K–1M total chats)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="low" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Chill chat (Under 100K total chats)
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="any" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                No Preference
+              </div>
+            </label>
+          </div>
+
+        {% elif step == 4 %}
+          <label class="block text-gray-700 text-sm font-bold mb-2">Do you prefer a specific agency?</label>
+          <div class="grid gap-2">
+            <label>
+              <input type="radio" name="answer" value="hololive" required class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Hololive
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="nijisanji" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Nijisanji
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="indie" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Independents
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="any" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                No Preference
+              </div>
+            </label>
+          </div>
+
+        {% elif step == 5 %}
+          <label class="block text-gray-700 text-sm font-bold mb-2">How willing are you to spend for your Oshi?</label>
+          <div class="grid gap-2">
+            <label>
+              <input type="radio" name="answer" value="high" required class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Whale
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="mid" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                Dolphin
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="answer" value="any" class="hidden peer">
+              <div class="peer-checked:border-rose-500 peer-checked:bg-rose-50 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 cursor-pointer hover:border-rose-300 transition duration-200">
+                No Preference
+              </div>
+            </label>
+          </div>
+        {% endif %}
+
+        <div class="flex items-center justify-between mt-6">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 hover:scale-105" type="submit">
+            {% if step == total_steps %}Find My Oshi !!{% else %}Next{% endif %}
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
 {% endblock %}

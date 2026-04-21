@@ -46,12 +46,6 @@ def toggle_favorite(channel_id):
     else:
         return redirect(url_for("auth.login_get"))
     
-@app.route("/quiz")
-def disp_quiz():
-    if session.get("username"):
-        return render_template("quiz.html")
-    else:
-        return redirect(url_for("auth.login_get"))
     
 @app.route("/browse")
 def disp_browse():
@@ -150,7 +144,114 @@ def post_comment(channel_id):
         return redirect(url_for("disp_profile", channel_id=channel_id))
     else:
         return redirect(url_for("auth.login_get"))
+    
 
+TOTAL_STEPS = 5
+ 
+@app.route("/quiz")
+def disp_quiz():
+    if session.get("username"):
+        session["answers"] = {}
+        return redirect(url_for("disp_quiz_step", step=1))
+    else:
+        return redirect(url_for("auth.login_get"))
+ 
+ 
+@app.route("/quiz/<int:step>")
+def disp_quiz_step(step):
+    if session.get("username"):
+        return render_template("quiz.html", step=step, total_steps=TOTAL_STEPS)
+    else:
+        return redirect(url_for("auth.login_get"))
+ 
+ 
+@app.route("/quiz/<int:step>", methods=["POST"])
+def submit_quiz(step):
+    if session.get("username"):
+        if "answers" not in session:
+            session["answers"] = {}
+        session["answers"][str(step)] = request.form.get("answer")
+        session.modified = True
+ 
+        if step == TOTAL_STEPS:
+            return redirect(url_for("disp_quiz_results"))
+        return redirect(url_for("disp_quiz_step", step=step + 1))
+    else:
+        return redirect(url_for("auth.login_get"))
+ 
+ 
+@app.route("/quiz/results")
+def disp_quiz_results():
+    if session.get("username"):
+        answers = session.get("answers", {})
+ 
+        db = sqlite3.connect(DB_FILE)
+        db.row_factory = sqlite3.Row
+        cursor = db.cursor()
+ 
+        vtubers = cursor.execute("""
+            SELECT v.*, SUM(sc.total_sc) as total_sc, SUM(c.chats) as total_chats
+            FROM vtubers v
+            LEFT JOIN superchats sc ON sc.channel_id = v.channel_id
+            LEFT JOIN chats c ON c.channel_id = v.channel_id
+            GROUP BY v.channel_id
+            ORDER BY v.total_subscriber_count DESC
+        """).fetchall()
+ 
+        db.close()
+ 
+        popularity = answers.get("1")
+        activity = answers.get("2")
+        chat = answers.get("3")
+        agency = answers.get("4")
+        superchat = answers.get("5")
+ 
+        results = []
+        for v in vtubers:
+            a = v["agency"] or ""
+            sc = v["total_sc"] or 0
+            tc = v["total_chats"] or 0
+ 
+            if popularity == "mega" and v["total_subscriber_count"] < 1000000:
+                continue
+            if popularity == "mid" and not (100000 <= v["total_subscriber_count"] < 1000000):
+                continue
+            if popularity == "small" and v["total_subscriber_count"] >= 100000:
+                continue
+ 
+            if activity == "high" and v["total_videos"] < 500:
+                continue
+            if activity == "mid" and not (100 <= v["total_videos"] < 500):
+                continue
+            if activity == "low" and v["total_videos"] >= 100:
+                continue
+ 
+            if chat == "high" and tc < 1000000:
+                continue
+            if chat == "mid" and not (100000 <= tc < 1000000):
+                continue
+            if chat == "low" and tc >= 100000:
+                continue
+ 
+            if agency == "hololive" and "hololive" not in a.lower():
+                continue
+            if agency == "nijisanji" and "nijisanji" not in a.lower():
+                continue
+            if agency == "indie" and a:
+                continue
+ 
+            if superchat == "high" and sc < 100000:
+                continue
+            if superchat == "mid" and not (10000 <= sc < 100000):
+                continue
+ 
+            results.append(v)
+ 
+        results = results[:5]
+ 
+        return render_template("quiz_results.html", vtubers=results)
+    else:
+        return redirect(url_for("auth.login_get"))
 
 if __name__ == "__main__":
     app.debug = True
