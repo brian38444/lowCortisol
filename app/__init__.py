@@ -188,6 +188,8 @@ def disp_quiz():
 @app.route("/quiz/<int:step>")
 def disp_quiz_step(step):
     if session.get("username"):
+        if (step > 5 or step < 1):
+            return redirect(url_for("disp_homepage"))
         return render_template("quiz.html", step=step, total_steps=TOTAL_STEPS)
     else:
         return redirect(url_for("auth.login_get"))
