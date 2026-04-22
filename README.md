@@ -53,10 +53,10 @@ $ pip install -r requirements.txt
 ```
 
 ## Steps to Run
-1. Create a Kaggle account at [https://www.kaggle.com]{kaggle.com}
+1. Create a Kaggle account at [https://www.kaggle.com](kaggle.com)
 2. Go to account --> Settings --> Create Legacy API Key which downloads kaggle.json to your machine
 3. Move kaggle.json to ~/.kaggle
-4. Create a Holodex acccount at [https://holodex.net/]{holodex.net}
+4. Create a Holodex acccount at [https://holodex.net/](holodex.net)
 5. Go to profile ==> Account Settings --> Create + Copy Free API Key
 7. In terminal, access project root directory and run the command:
 
