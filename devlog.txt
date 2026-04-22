@@ -110,6 +110,14 @@ lucasZ -- 4/21/26 10:45
 lucasZ -- 4/21/26 10:58
 - Updated README.md
 
+lucasZ -- 4/21/26 11:59
+- Updated README.md
+- Created update_pfp.py to try fix pfps with broken image
+- Made header extendable and retractable
+- Removed header clutter
+- Created a homepage with trending and favorite secions. Added cool stats and a short description about the site
+- Created default alternative homepage to not logged in users just without favorite sections
+
 ```
 NOTABLE DESIGN REVISIONS:
 ------------------------------------
