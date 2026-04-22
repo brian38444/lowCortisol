@@ -2,9 +2,27 @@
 
 ## Roster:
 - Jun Jie Li (PM):
+    - Project manager. Make sure deliverable checkpoints are met.
+    - Handle Flask routing and SQLite queries
+    - Favorite VTubers button and list of them in home page
+
 - Shafin Kazi:
+    - Visualize Data with charts
+    - Handle profile organization
+    - Handle kaggle dataset downloading logic 
+    - Handle creation + population of db
+    - Create quiz 
+    - Code search and filter functionalities across VTuber pages
+
 - Lucas Zheng:
+    - Help create tables for visualization
+    - Store picture of tables in folders rather than constant generation
+    - Decorate home page with tailwind
+
 - Kyle Liu:
+    - Handle templates and site design with Tailwind
+    - Link HTML with Jinja for conditional rendering of templates
+
 
 ## Description:
 It’s the big 26, and you don’t have a fav VTuber? Look no further! Take a quiz, find your Oshi, view their stats and make a post to share your opinion!
