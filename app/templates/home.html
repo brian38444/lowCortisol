@@ -29,14 +29,6 @@
     <p class="hero-in hero-in-1 inline-flex items-center gap-2 text-rose-500 font-medium mb-5 text-sm bg-rose-50 border border-rose-200 px-4 py-1.5 rounded-full">
       <span>Welcome back, <span class="font-bold">{{ session['username'] }}</span></span>
     </p>
-    {% else %}
-    <p class="hero-in hero-in-1 inline-flex items-center gap-2 text-rose-500 font-medium mb-5 text-sm bg-rose-50 border border-rose-200 px-4 py-1.5 rounded-full">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
-      </span>
-      tracking {{ '{:,}'.format(total_vtubers) }} vtubers across the scene
-    </p>
     {% endif %}
 
     <h1 class="hero-in hero-in-2 font-display text-[2.75rem] leading-[1.15] md:text-7xl lg:text-8xl md:leading-[1.1] font-medium bg-gradient-to-br from-rose-500 via-pink-500 to-blue-500 bg-clip-text text-transparent pb-3 mb-6">
@@ -177,27 +169,6 @@
         </div>
       </a>
       {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-{% if not session['username'] %}
-<section class="py-20 px-4">
-  <div class="relative max-w-4xl mx-auto bg-gradient-to-br from-rose-500 via-rose-500 to-pink-600 rounded-[2.5rem] p-10 md:p-16 text-center text-white shadow-2xl shadow-rose-200/60 overflow-hidden">
-    <div class="absolute -top-16 -right-16 w-64 h-64 bg-pink-400 rounded-full blur-3xl opacity-40"></div>
-    <div class="absolute -bottom-20 -left-10 w-72 h-72 bg-rose-300 rounded-full blur-3xl opacity-30"></div>
-
-    <div class="relative">
-      <h2 class="font-display text-3xl md:text-5xl font-medium mb-4 leading-tight">
-        ready to find <span class="italic">your oshi?</span>
-      </h2>
-      <p class="text-rose-50 mb-8 md:text-lg">join the community — it's free, and it takes about twelve seconds.</p>
-      <a href="/auth/register"
-        class="group inline-flex items-center gap-2 bg-white text-rose-500 font-semibold px-8 py-3 rounded-full hover:-translate-y-0.5 hover:shadow-xl transition-all">
-        sign up
-        <span class="transition-transform group-hover:translate-x-1">→</span>
-      </a>
     </div>
   </div>
 </section>
