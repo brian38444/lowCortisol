@@ -109,3 +109,11 @@ lucasZ -- 4/21/26 10:45
 
 lucasZ -- 4/21/26 10:58
 - Updated README.md
+
+```
+NOTABLE DESIGN REVISIONS:
+------------------------------------
+Updated databases, list of components, description of how quiz works, site map, component map
+New: Favorites data table, favorite VTubers in home page, holodex API
+====================================
+```

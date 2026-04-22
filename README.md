@@ -59,3 +59,4 @@ $ pip install -r requirements.txt
 ## KNOWN BUGS/ISSUES
 * Placeholder VTuber profile pictures because of outdated dataset
 * Deleted YT channels -> Empty profile pages
+* Project might not run locally with old python version ?
