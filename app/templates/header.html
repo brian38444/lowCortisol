@@ -12,48 +12,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>{% block title %}{% endblock %} - Find My OSHI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --nav-height: 108px;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .font-display {
+        font-family: "Fraunces", ui-serif, Georgia, serif;
+        font-optical-sizing: auto;
+        font-variation-settings: "SOFT" 50;
+      }
+      .site-nav {
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.3s ease, background-color 0.3s ease;
+        will-change: transform;
+      }
+      .site-nav.scrolled {
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: saturate(180%) blur(12px);
+        -webkit-backdrop-filter: saturate(180%) blur(12px);
+        box-shadow: 0 4px 20px -8px rgba(225, 29, 72, 0.15);
+      }
+      .site-nav.nav-hidden {
+        transform: translateY(-100%);
+      }
+    </style>
+
+    <title>{% block title %}{% endblock %} · Find My OSHI</title>
   </head>
-  <body>
+  <body class="bg-white text-gray-900">
     <header>
       <nav
-        class="bg-neutral-primary fixed w-full top-0 start-0 border-b border-rose-500"
+        id="site-nav"
+        class="site-nav bg-white fixed w-full top-0 start-0 border-b border-rose-500 z-50"
       >
         <div
           class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         >
-          <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse hover:text-blue-400">
+          <a
+            href="/"
+            class="flex items-center space-x-3 rtl:space-x-reverse group"
+          >
             <img
               src="https://media.tenor.com/rBpFtUBdafkAAAAi/gura.gif"
-              class="h-20"
+              class="h-20 transition-transform duration-300 group-hover:scale-105"
               alt="Gura"
             />
             <span
-              class="self-center text-xl text-heading font-semibold whitespace-nowrap"
-              >Home</span
+              class="font-display self-center text-2xl font-semibold whitespace-nowrap text-gray-900 group-hover:text-rose-500 transition-colors"
+              >oshi<span class="text-rose-500">.</span>me</span
             >
           </a>
 
           <div id="navbar-default">
             <ul
-              class="font-medium flex md:flex-row md:space-x-8 rtl:space-x-reverse"
+              class="font-medium flex md:flex-row md:space-x-8 rtl:space-x-reverse items-center text-sm"
             >
               <li>
                 <a
                   href="https://github.com/brian38444/lowCortisol.git"
-                  class="text-heading hover:bg-neutral-tertiary md:bg-transparent md:hover:text-blue-400"
+                  class="text-gray-600 hover:text-rose-500 transition-colors"
                   >Github</a
                 >
               </li>
               {% if not session['username'] %}
               <li>
-                <a href="/auth/login" class="md:hover:text-blue-400">Log In</a>
+                <a
+                  href="/auth/login"
+                  class="text-gray-600 hover:text-rose-500 transition-colors"
+                  >Log In</a
+                >
               </li>
-
               <li>
                 <a
                   href="/auth/register"
-                  class="text-heading md:hover:text-blue-400"
+                  class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-full transition-all hover:shadow-md hover:shadow-rose-200"
                   >Register</a
                 >
               </li>
@@ -61,24 +109,21 @@
               <li>
                 <a
                   href="/browse"
-                  class="text-heading md:hover:text-blue-400"
+                  class="text-gray-600 hover:text-rose-500 transition-colors"
                   >VTubers</a
                 >
               </li>
-
-
               <li>
                 <a
                   href="/quiz"
-                  class="text-heading md:hover:text-blue-400"
+                  class="text-gray-600 hover:text-rose-500 transition-colors"
                   >Quiz</a
                 >
               </li>
-
               <li>
                 <a
                   href="/auth/logout"
-                  class="text-heading md:hover:text-blue-400"
+                  class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-full transition-all hover:shadow-md hover:shadow-rose-200"
                   >Log Out</a
                 >
               </li>
@@ -90,6 +135,56 @@
     </header>
 
     <main class="content">{% block content %} {% endblock %}</main>
+
+    <script>
+      (function () {
+        var nav = document.getElementById("site-nav");
+        if (!nav) return;
+        var lastScroll = window.pageYOffset;
+        var threshold = 100;
+        var ticking = false;
+
+        function onScroll() {
+          var current = window.pageYOffset;
+
+          if (current > 8) {
+            nav.classList.add("scrolled");
+          } else {
+            nav.classList.remove("scrolled");
+          }
+
+          if (current <= 0) {
+            nav.classList.remove("nav-hidden");
+            lastScroll = current;
+            ticking = false;
+            return;
+          }
+
+          var delta = current - lastScroll;
+
+          if (delta > 4 && current > threshold) {
+            nav.classList.add("nav-hidden");
+          } else if (delta < -4) {
+            nav.classList.remove("nav-hidden");
+          }
+
+          lastScroll = current;
+          ticking = false;
+        }
+
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (!ticking) {
+              window.requestAnimationFrame(onScroll);
+              ticking = true;
+            }
+          },
+          { passive: true }
+        );
+      })();
+    </script>
+
     {% block script %} {% endblock %}
   </body>
 </html>

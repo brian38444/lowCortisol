@@ -2,54 +2,214 @@
   Team lowCortisol :: Jun Jie Li (PM), Shafin Kazi, Lucas Zheng, Kyle Liu
   SoftDev pd4
   p04
-  2026-04-20m
+  2026-04-21
 -->
 
 {% extends "header.html" %}
 
-{% block title %}Home - Find My OSHI{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 
-<br><br><br><br><br>
-<h2 class="text-rose-600 font-bold text-lg w-4/5 mx-auto">Favorite Oshis</h2>
+<style>
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-in { animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-in-1 { animation-delay: 0.05s; }
+  .hero-in-2 { animation-delay: 0.18s; }
+  .hero-in-3 { animation-delay: 0.32s; }
+  .hero-in-4 { animation-delay: 0.48s; }
+</style>
 
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 w-4/5 mx-auto">
-  {% for vtuber in vtubers %}
-  <a
-    href="/profile/{{ vtuber[0] }}"
-    class="group bg-white border border-gray-100 rounded-xl overflow-hidden hover:border-rose-300 hover:shadow-sm transition-all"
-  >
-    <div class="aspect-square bg-gray-50 overflow-hidden">
-      {% if vtuber[2] %}
-        <img
-          src="{{ vtuber[2] }}"
-          alt="{{ vtuber[1] }}"
-          class="w-full h-full object-cover group-hover:scale-105 duration-300"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-        >
-        <div class="w-full h-full hidden items-center justify-center bg-rose-50 text-rose-700 text-2xl font-medium">
-          {{ vtuber[1][0] | upper }}
-        </div>
+<section class="relative overflow-hidden pt-36 md:pt-40 pb-24 px-4">
+  <div class="relative max-w-5xl mx-auto text-center">
+    {% if session['username'] %}
+    <p class="hero-in hero-in-1 inline-flex items-center gap-2 text-rose-500 font-medium mb-5 text-sm bg-rose-50 border border-rose-200 px-4 py-1.5 rounded-full">
+      <span>Welcome back, <span class="font-bold">{{ session['username'] }}</span></span>
+    </p>
+    {% else %}
+    <p class="hero-in hero-in-1 inline-flex items-center gap-2 text-rose-500 font-medium mb-5 text-sm bg-rose-50 border border-rose-200 px-4 py-1.5 rounded-full">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+      </span>
+      tracking {{ '{:,}'.format(total_vtubers) }} vtubers across the scene
+    </p>
+    {% endif %}
+
+    <h1 class="hero-in hero-in-2 font-display text-[2.75rem] leading-[1.15] md:text-7xl lg:text-8xl md:leading-[1.1] font-medium bg-gradient-to-br from-rose-500 via-pink-500 to-blue-500 bg-clip-text text-transparent pb-3 mb-6">
+      Find your perfect oshi
+    </h1>
+    <p class="hero-in hero-in-3 text-gray-600 text-base md:text-lg max-w-xl mx-auto mb-9 leading-relaxed">
+      A matchmaking tool for vtuber fans to browse channel stats and discover who you should be watching next.
+    </p>
+
+    <div class="hero-in hero-in-4 flex flex-wrap gap-3 justify-center">
+      {% if session['username'] %}
+      <a href="/quiz"
+        class="group inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-7 py-3 rounded-full transition-all hover:shadow-xl hover:shadow-rose-200 hover:-translate-y-0.5">
+        Take the Quiz
+        <span class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
+      <a href="/browse"
+        class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-800 hover:border-rose-400 hover:text-rose-500 font-semibold px-7 py-3 rounded-full transition-all hover:-translate-y-0.5">
+        Browse VTubers
+      </a>
       {% else %}
-        <div class="w-full h-full flex items-center justify-center bg-rose-50 text-rose-700 text-2xl font-medium">
-          {{ vtuber[1][0] | upper }}
-        </div>
+      <a href="/auth/register"
+        class="group inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-7 py-3 rounded-full transition-all hover:shadow-xl hover:shadow-rose-200 hover:-translate-y-0.5">
+        Get Started
+        <span class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
+      <a href="/auth/login"
+        class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-800 hover:border-rose-400 hover:text-rose-500 font-semibold px-7 py-3 rounded-full transition-all hover:-translate-y-0.5">
+        Log In
+      </a>
       {% endif %}
     </div>
-    <div class="p-3">
-      <p class="text-sm font-medium truncate text-gray-900">{{ vtuber[1] }}</p>
-      {% if vtuber[3] %}
-        <p class="text-xs text-gray-400 truncate mt-0.5">{{ vtuber[3] }}</p>
-      {% endif %}
-      <p class="text-xs text-gray-400 mt-1">{{ '{:,}'.format(vtuber[4]) }} subs</p>
-    </div>
-  </a>
-  {% else %}
-  <div class="col-span-full text-center py-20 text-gray-400 text-sm">
-    No favorites yet. <a href="/browse" class="text-rose-500 hover:underline">Browse VTubers</a> to add some!
   </div>
-  {% endfor %}
-</div>
+</section>
+
+<section class="relative border-y border-rose-100 bg-white">
+  <div class="max-w-5xl mx-auto grid grid-cols-3 divide-x divide-rose-100">
+    <div class="py-10 px-4 text-center">
+      <p class="font-display text-4xl md:text-5xl font-semibold text-rose-500">{{ '{:,}'.format(total_vtubers) }}</p>
+      <p class="text-gray-500 text-xs md:text-sm mt-1 uppercase tracking-widest">VTubers</p>
+    </div>
+    <div class="py-10 px-4 text-center">
+      <p class="font-display text-4xl md:text-5xl font-semibold text-blue-500">{{ '{:,}'.format(total_agencies) }}</p>
+      <p class="text-gray-500 text-xs md:text-sm mt-1 uppercase tracking-widest">Agencies</p>
+    </div>
+    <div class="py-10 px-4 text-center">
+      <p class="font-display text-4xl md:text-5xl font-semibold text-rose-500">{{ '{:,}'.format(total_subs) }}</p>
+      <p class="text-gray-500 text-xs md:text-sm mt-1 uppercase tracking-widest">Subscribers</p>
+    </div>
+  </div>
+</section>
+
+{% if session['username'] and favorites %}
+<section class="py-16 md:py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-end justify-between mb-8 flex-wrap gap-3">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-gray-900">
+          your <span class="italic text-rose-500">favorites</span>
+        </h2>
+      </div>
+      <a href="/browse" class="text-sm text-gray-500 hover:text-rose-500 transition-colors">browse more →</a>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {% for vtuber in favorites[:10] %}
+      <a href="/profile/{{ vtuber[0] }}"
+        class="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-rose-300 hover:shadow-lg hover:shadow-rose-100/60 hover:-translate-y-1 transition-all">
+        <div class="aspect-square bg-gray-50 overflow-hidden relative">
+          {% if vtuber[2] %}
+          <img src="{{ vtuber[2] }}" alt="{{ vtuber[1] }}"
+            class="w-full h-full object-cover group-hover:scale-110 duration-500"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="w-full h-full hidden items-center justify-center bg-rose-50 text-rose-700 text-3xl font-display font-semibold">
+            {{ vtuber[1][0] | upper }}
+          </div>
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-rose-50 text-rose-700 text-3xl font-display font-semibold">
+            {{ vtuber[1][0] | upper }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="p-3">
+          <p class="text-sm font-semibold truncate text-gray-900">{{ vtuber[1] }}</p>
+          {% if vtuber[3] %}
+          <p class="text-xs text-gray-400 truncate mt-0.5">{{ vtuber[3] }}</p>
+          {% endif %}
+          <p class="text-xs text-gray-400 mt-1">{{ '{:,}'.format(vtuber[4]) }} subs</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if trending %}
+<section class="py-16 md:py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-end justify-between mb-8 flex-wrap gap-3">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl font-medium text-gray-900">
+          Trending right now
+        </h2>
+      </div>
+      <a href="/browse" class="text-sm text-gray-500 hover:text-rose-500 transition-colors">see all →</a>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {% for vtuber in trending %}
+      <a href="/profile/{{ vtuber[0] }}"
+        class="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-rose-300 hover:shadow-lg hover:shadow-rose-100/60 hover:-translate-y-1 transition-all">
+        {% if loop.index <= 3 %}
+        <div class="absolute top-2 left-2 z-10 bg-white/95 backdrop-blur font-display font-semibold text-rose-500 text-xs px-2 py-1 rounded-full border border-rose-200">
+          #{{ loop.index }}
+        </div>
+        {% endif %}
+        <div class="aspect-square bg-gray-50 overflow-hidden">
+          {% if vtuber[2] %}
+          <img src="{{ vtuber[2] }}" alt="{{ vtuber[1] }}"
+            class="w-full h-full object-cover group-hover:scale-110 duration-500"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="w-full h-full hidden items-center justify-center bg-rose-50 text-rose-700 text-3xl font-display font-semibold">
+            {{ vtuber[1][0] | upper }}
+          </div>
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-rose-50 text-rose-700 text-3xl font-display font-semibold">
+            {{ vtuber[1][0] | upper }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="p-3">
+          <p class="text-sm font-semibold truncate text-gray-900">{{ vtuber[1] }}</p>
+          {% if vtuber[3] %}
+          <p class="text-xs text-gray-400 truncate mt-0.5">{{ vtuber[3] }}</p>
+          {% endif %}
+          <p class="text-xs text-gray-400 mt-1">{{ '{:,}'.format(vtuber[4]) }} subs</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if not session['username'] %}
+<section class="py-20 px-4">
+  <div class="relative max-w-4xl mx-auto bg-gradient-to-br from-rose-500 via-rose-500 to-pink-600 rounded-[2.5rem] p-10 md:p-16 text-center text-white shadow-2xl shadow-rose-200/60 overflow-hidden">
+    <div class="absolute -top-16 -right-16 w-64 h-64 bg-pink-400 rounded-full blur-3xl opacity-40"></div>
+    <div class="absolute -bottom-20 -left-10 w-72 h-72 bg-rose-300 rounded-full blur-3xl opacity-30"></div>
+
+    <div class="relative">
+      <h2 class="font-display text-3xl md:text-5xl font-medium mb-4 leading-tight">
+        ready to find <span class="italic">your oshi?</span>
+      </h2>
+      <p class="text-rose-50 mb-8 md:text-lg">join the community — it's free, and it takes about twelve seconds.</p>
+      <a href="/auth/register"
+        class="group inline-flex items-center gap-2 bg-white text-rose-500 font-semibold px-8 py-3 rounded-full hover:-translate-y-0.5 hover:shadow-xl transition-all">
+        sign up
+        <span class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<footer class="py-10 px-4 border-t border-rose-100">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+    <p class="font-display text-base">
+      oshi<span class="text-rose-500">.</span>me
+    </p>
+    <p>Made by team lowCortisol</p>
+  </div>
+</footer>
 
 {% endblock %}
