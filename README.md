@@ -38,10 +38,15 @@ $ pip install -r requirements.txt
 1. Create a Kaggle account at [https://www.kaggle.com]{kaggle.com}
 2. Go to account --> Settings --> Create Legacy API Key which downloads kaggle.json to your machine
 3. Move kaggle.json to ~/.kaggle
-4. In terminal, access project root directory and run the command:
+4. Create a Holodex acccount at [https://holodex.net/]{holodex.net}
+5. Go to profile ==> Account Settings --> Create + Copy Free API Key
+7. In terminal, access project root directory and run the command:
 
 ```
+~$ export HOLODEX_API_KEY=paste_api_key_here
 ~$ cd app
+~$ python download_datasets.py
+~$ python update_pfp.py
 ~$ python __init__.py
 ```
 
@@ -52,7 +57,5 @@ $ pip install -r requirements.txt
 * Favorite VTubers to easily find and keep track of them later
 
 ## KNOWN BUGS/ISSUES
-* spider
-* ant
-* PTSD
-* etc
+* Placeholder VTuber profile pictures because of outdated dataset
+* Deleted YT channels -> Empty profile pages
