@@ -48,8 +48,8 @@ $ pip install -r requirements.txt
 ## FEATURE SPOTLIGHT
 * A quiz to find a matching VTuber for you
 * Graphs displaying channel and livestream statistics
-* Commenting feature to give your opinions on VTubers
-* Ability to favorite your VTubers to remember them
+* Share your opinions on VTubers with the commenting feature
+* Favorite VTubers to easily find and keep track of them later
 
 ## KNOWN BUGS/ISSUES
 * spider
